@@ -10,5 +10,6 @@ void freeCMemory(void* ptr);
 
 @interface ObjCBridge : NSObject
 + (NSString*)callWithClassName:(NSString*)className methodName:(NSString*)methodName jsonArgs:(NSString*)jsonArgs;
++ (NSString*)test:(NSString*)str;
 @end
 

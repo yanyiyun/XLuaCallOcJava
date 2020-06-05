@@ -272,6 +272,12 @@ void freeCMemory(void* ptr)
     return [[self class] arrayToJsonString:@[[NSNumber numberWithInt:_error], rval]];
 }
 
++ (NSString*)test:(NSString*)str {
+    NSLog(@"%@", str);
+    return str;
+}
+
+
 
 #pragma mark -字典转换成json串
 + (NSString *)dictionaryToJsonString:(NSDictionary *)dict{

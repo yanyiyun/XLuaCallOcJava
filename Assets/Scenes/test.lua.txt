@@ -18,8 +18,9 @@ end
 local function testIOS()
     print("Test iOS------------------------")
     print(iOSCallStaticMethod("ObjCBridgeTest", "test2:arg2:", 123, "abc"))
-    print(iOSCallStaticMethod("ObjCBridgeTest", "ttestNoArg"))
+    print(iOSCallStaticMethod("ObjCBridgeTest", "testNoArg"))
     print(iOSCallStaticMethod("ObjCBridgeTest", "test:", "lua hello"))
+    print(iOSCallStaticMethod("ObjCBridge", "test:", "ObjCBridge Test"))
     print("--------------------------------")
 end
 
