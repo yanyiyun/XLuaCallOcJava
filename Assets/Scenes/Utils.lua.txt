@@ -1,0 +1,32 @@
+﻿
+
+
+function AndroidCallStaticMethod(className, methodName, methodSignature, luaArgs)
+    local rt = string.sub(methodSignature, -1, -1)
+    local method
+    if rt == "V" then
+        method = CS.Utils.CallStaticVoidMethod
+    elseif rt == "A" then
+        method = CS.Utils.CallStaticStringMethod
+    elseif rt == "Z" then
+        method = CS.Utils.CallStaticBooleanMethod
+    elseif rt == "B" then
+        method = CS.Utils.CallStaticByteMethod
+    elseif rt == "C" then
+        method = CS.Utils.CallStaticCharMethod
+    elseif rt == "S" then
+        method = CS.Utils.CallStaticShortMethod
+    elseif rt == "I" then
+        method = CS.Utils.CallStaticIntMethod
+    elseif rt == "J" then
+        method = CS.Utils.CallStaticLongMethod
+    elseif rt == "F" then
+        method = CS.Utils.CallStaticFloatMethod
+    elseif rt == "D" then
+        method = CS.Utils.CallStaticDoubleMethod
+    else
+        error("error return type: "..tostring(rt))
+    end
+
+    return method(className, methodName, methodSignature, luaArgs)
+end
