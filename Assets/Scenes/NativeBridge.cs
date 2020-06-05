@@ -4,21 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using XLua;
 
-public class Utils
+public class NativeBridge
 {
-    public static void Test(string str)
-    {
-        Debug.Log(str);
-    }
 
-
-    public static void Test1(LuaTable lt)
-    {
-        Debug.Log(lt);
-    }
-
-
-
+#if UNITY_ANDROID
     public static void CallStaticVoidMethod(string className, string methodName, string methodSignature, LuaTable luaArgs)
     {
         object[] args = ConvertLuaArgs(methodSignature, luaArgs);
@@ -173,5 +162,27 @@ public class Utils
 
         return al.ToArray();
     }
+#endif
 
+
+#if UNITY_IOS
+    [DllImport("__Internal")]
+    private static extern IntPtr callObjCBridge(string className, string methodName, string jsonArgs, out int rlen);
+
+    [DllImport("__Internal")]
+    private static extern void freeCMemory(IntPtr ptr);
+
+    public static string CallStaticMethod(string className, string methodName, string jsonArgs)
+    {
+        int rlen = 0;
+        IntPtr stringData = callObjCBridge(className, methodName, jsonArgs, out rlen);
+
+        byte[] buffer = new byte[rlen];
+        Marshal.Copy(stringData, buffer, 0, rlen);
+        // Marshal.FreeHGlobal(stringData);
+        freeCMemory(stringData);
+
+        return System.Text.Encoding.UTF8.GetString(buffer);
+    }
+#endif
 }

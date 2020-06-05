@@ -2,7 +2,7 @@ package com.example.test3;
 
 import android.util.Log;
 
-public class SysUtils {
+public class JavaBridgeTest {
     static String tag = "UnityAndroid";
     
     public static void TestNoArg() {

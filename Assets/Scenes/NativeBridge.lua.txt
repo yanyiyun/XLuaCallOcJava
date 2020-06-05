@@ -1,0 +1,96 @@
+﻿--user define
+local json = json
+local register_global_module_table = true
+
+
+
+local function AndroidCallStaticMethod(className, methodName, methodSignature, ...)
+    local luaArgs = {...}
+    local rt = string.sub(methodSignature, -1, -1)
+    local method
+    if rt == "V" then
+        method = CS.NativeBridge.CallStaticVoidMethod
+    elseif rt == "A" then
+        method = CS.NativeBridge.CallStaticStringMethod
+    elseif rt == "Z" then
+        method = CS.NativeBridge.CallStaticBooleanMethod
+    elseif rt == "B" then
+        method = CS.NativeBridge.CallStaticByteMethod
+    elseif rt == "C" then
+        method = CS.NativeBridge.CallStaticCharMethod
+    elseif rt == "S" then
+        method = CS.NativeBridge.CallStaticShortMethod
+    elseif rt == "I" then
+        method = CS.NativeBridge.CallStaticIntMethod
+    elseif rt == "J" then
+        method = CS.NativeBridge.CallStaticLongMethod
+    elseif rt == "F" then
+        method = CS.NativeBridge.CallStaticFloatMethod
+    elseif rt == "D" then
+        method = CS.NativeBridge.CallStaticDoubleMethod
+    else
+        error("error return type: "..tostring(rt))
+    end
+
+    return method(className, methodName, methodSignature, luaArgs)
+end
+
+
+local function iOSCallStaticMethod(className, methodName, ...)
+    local args = {...}
+    local jsonArgs = json.encode(args)
+    local rstr = CS.NativeBridge.CallStaticMethod(className, methodName, jsonArgs)
+    local rt = json.decode(rstr)
+    local err = rt[1]
+    local rval = rt[2]
+
+    if err == 0 then
+        -- no err
+    elseif err == -1 then
+        error("JSO_ERR_TYPE_NOT_SUPPORT")
+    elseif err == -2 then
+        error("JSO_ERR_INVALID_ARGUMENTS")
+    elseif err == -3 then
+        error("JSO_ERR_METHOD_NOT_FOUND")
+    elseif err == -4 then
+        error("JSO_ERR_EXCEPTION_OCCURRED")
+    elseif err == -5 then
+        error("JSO_ERR_CLASS_NOT_FOUND")
+    elseif err == -6 then
+        error("JSO_ERR_VM_FAILURE")
+    else
+        error("unkown error")
+    end
+
+    return rval
+end
+
+
+local NativeBridge = {}
+
+if register_global_module_table then
+    _G["NativeBridge"] = NativeBridge
+end
+
+--[[
+Andriod:
+AndroidCallStaticMethod(className, methodName, methodSignature, ...)
+methodSignature: 函数签名和jni的规则基本一致. 差别: 字符串用A替代; 只支持基本类型和字符串;  例如: (AZBCSIJFD)V
+https://blog.csdn.net/afei__/article/details/80899758
+
+
+iOS:
+iOSCallStaticMethod(className, methodName, ...)
+methodName: 如: 没有参数 "funcname"  一个参数 "funcname:"   2个参数  "funcname:argname2:"
+]]
+function NativeBridge.CallStatic(...)
+    if CS.UnityEngine.Application.platform == CS.UnityEngine.RuntimePlatform.Android then
+        return AndroidCallStaticMethod(...)
+    elseif CS.UnityEngine.Application.platform == CS.UnityEngine.RuntimePlatform.IPhonePlayer then
+        return iOSCallStaticMethod(...)
+    else
+        print("unsupport platform")
+    end    
+end
+
+return NativeBridge
