@@ -1,4 +1,4 @@
-﻿
+﻿local json = json
 
 
 function AndroidCallStaticMethod(className, methodName, methodSignature, luaArgs)
@@ -29,4 +29,34 @@ function AndroidCallStaticMethod(className, methodName, methodSignature, luaArgs
     end
 
     return method(className, methodName, methodSignature, luaArgs)
+end
+
+
+function iOSCallStaticMethod(className, methodName, ...)
+    local args = {...}
+    local jsonArgs = json.encode(args)
+    local rstr = CS.OcUtils.CallStaticMethod(className, methodName, jsonArgs)
+    local rt = json.decode(rstr)
+    local err = rt[1]
+    local rval = rt[2]
+
+    if err == 0 then
+        -- no err
+    elseif err == -1 then
+        error("JSO_ERR_TYPE_NOT_SUPPORT")
+    elseif err == -2 then
+        error("JSO_ERR_INVALID_ARGUMENTS")
+    elseif err == -3 then
+        error("JSO_ERR_METHOD_NOT_FOUND")
+    elseif err == -4 then
+        error("JSO_ERR_EXCEPTION_OCCURRED")
+    elseif err == -5 then
+        error("JSO_ERR_CLASS_NOT_FOUND")
+    elseif err == -6 then
+        error("JSO_ERR_VM_FAILURE")
+    else
+        error("unkown error")
+    end
+
+    return rval
 end

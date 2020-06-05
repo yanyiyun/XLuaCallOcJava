@@ -1,14 +1,33 @@
 ﻿
-print("Test Android--------------------")
-AndroidCallStaticMethod('com.example.test3.SysUtils', 'TestNoArg', '()V')
-AndroidCallStaticMethod('com.example.test3.SysUtils', 'TestVoid', '(AZBCSIJFD)V', {'abc', true, 3, 'd', 5, 6, 7, 8, 9})
-print(AndroidCallStaticMethod('com.example.test3.SysUtils', 'TestString', '(AZBCSIJFD)A', {'abc', true, 3, 'd', 5, 6, 7, 8, 9}))
-print(AndroidCallStaticMethod('com.example.test3.SysUtils', 'TestBoolean', '(AZBCSIJFD)Z', {'abc', true, 3, 'd', 5, 6, 7, 8, 9}))
-print(AndroidCallStaticMethod('com.example.test3.SysUtils', 'TestByte', '(AZBCSIJFD)B', {'abc', true, 3, 'd', 5, 6, 7, 8, 9}))
-print(AndroidCallStaticMethod('com.example.test3.SysUtils', 'TestChar', '(AZBCSIJFD)C', {'abc', true, 3, 'd', 5, 6, 7, 8, 9}))
-print(AndroidCallStaticMethod('com.example.test3.SysUtils', 'TestShort', '(AZBCSIJFD)S', {'abc', true, 3, 'd', 5, 6, 7, 8, 9}))
-print(AndroidCallStaticMethod('com.example.test3.SysUtils', 'TestInt', '(AZBCSIJFD)I', {'abc', true, 3, 'd', 5, 6, 7, 8, 9}))
-print(AndroidCallStaticMethod('com.example.test3.SysUtils', 'TestLong', '(AZBCSIJFD)J', {'abc', true, 3, 'd', 5, 6, 7, 8, 9}))
-print(AndroidCallStaticMethod('com.example.test3.SysUtils', 'TestFloat', '(AZBCSIJFD)F', {'abc', true, 3, 'd', 5, 6, 7, 8, 9}))
-print(AndroidCallStaticMethod('com.example.test3.SysUtils', 'TestDouble', '(AZBCSIJFD)D', {'abc', true, 3, 'd', 5, 6, 7, 8, 9}))
-print("--------------------------------")
+local function testAndroid()
+    print("Test Android--------------------")
+    AndroidCallStaticMethod('com.example.test3.SysUtils', 'TestNoArg', '()V')
+    AndroidCallStaticMethod('com.example.test3.SysUtils', 'TestVoid', '(AZBCSIJFD)V', {'abc', true, 3, 'd', 5, 6, 7, 8, 9})
+    print(AndroidCallStaticMethod('com.example.test3.SysUtils', 'TestString', '(AZBCSIJFD)A', {'abc', true, 3, 'd', 5, 6, 7, 8, 9}))
+    print(AndroidCallStaticMethod('com.example.test3.SysUtils', 'TestBoolean', '(AZBCSIJFD)Z', {'abc', true, 3, 'd', 5, 6, 7, 8, 9}))
+    print(AndroidCallStaticMethod('com.example.test3.SysUtils', 'TestByte', '(AZBCSIJFD)B', {'abc', true, 3, 'd', 5, 6, 7, 8, 9}))
+    print(AndroidCallStaticMethod('com.example.test3.SysUtils', 'TestChar', '(AZBCSIJFD)C', {'abc', true, 3, 'd', 5, 6, 7, 8, 9}))
+    print(AndroidCallStaticMethod('com.example.test3.SysUtils', 'TestShort', '(AZBCSIJFD)S', {'abc', true, 3, 'd', 5, 6, 7, 8, 9}))
+    print(AndroidCallStaticMethod('com.example.test3.SysUtils', 'TestInt', '(AZBCSIJFD)I', {'abc', true, 3, 'd', 5, 6, 7, 8, 9}))
+    print(AndroidCallStaticMethod('com.example.test3.SysUtils', 'TestLong', '(AZBCSIJFD)J', {'abc', true, 3, 'd', 5, 6, 7, 8, 9}))
+    print(AndroidCallStaticMethod('com.example.test3.SysUtils', 'TestFloat', '(AZBCSIJFD)F', {'abc', true, 3, 'd', 5, 6, 7, 8, 9}))
+    print(AndroidCallStaticMethod('com.example.test3.SysUtils', 'TestDouble', '(AZBCSIJFD)D', {'abc', true, 3, 'd', 5, 6, 7, 8, 9}))
+    print("--------------------------------")
+end
+
+local function testIOS()
+    print("Test iOS------------------------")
+    print(iOSCallStaticMethod("ObjCBridgeTest", "test2:arg2:", 123, "abc"))
+    print(iOSCallStaticMethod("ObjCBridgeTest", "ttestNoArg"))
+    print(iOSCallStaticMethod("ObjCBridgeTest", "test:", "lua hello"))
+    print("--------------------------------")
+end
+
+
+if CS.UnityEngine.Application.platform == CS.UnityEngine.RuntimePlatform.Android then
+    testAndroid()
+elseif CS.UnityEngine.Application.platform == CS.UnityEngine.RuntimePlatform.IPhonePlayer then
+    testIOS()
+else
+    print("do nothing")
+end
