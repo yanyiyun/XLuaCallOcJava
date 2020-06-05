@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 835281aab577a1e40a7999b362deed1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jsonLua: {fileID: 4900000, guid: 13c2057334fed1744b4cdc7ff56cddd2, type: 3}
   initLua: {fileID: 4900000, guid: 1e7cc526e43c90e479e4c593896f8c2a, type: 3}
   testLua: {fileID: 4900000, guid: e97319ec3c8af4a47946d9091d7c0ba8, type: 3}
 --- !u!20 &519420031

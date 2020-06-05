@@ -5,6 +5,7 @@ using XLua;
 
 public class Main : MonoBehaviour
 {
+    public TextAsset jsonLua;
     public TextAsset initLua;
     public TextAsset testLua;
     
@@ -17,6 +18,7 @@ public class Main : MonoBehaviour
     {
         LuaEnv luaenv = new LuaEnv();
 
+        luaenv.DoString(jsonLua.text);
         luaenv.DoString(initLua.text);
         luaenv.DoString(testLua.text);
 
