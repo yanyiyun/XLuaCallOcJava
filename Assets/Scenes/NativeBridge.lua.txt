@@ -1,4 +1,4 @@
---user define
+﻿--user define
 local json = require("dkjson")
 local register_global_module_table = false
 
@@ -73,6 +73,21 @@ if register_global_module_table then
 end
 
 --[[
+Andriod:
+AndroidCallStaticMethod(className, methodName, methodSignature, ...)
+methodSignature: Method signature rule is similar to JNI rule.  Difference: Replace character string with 'A'; only support base type and sting stype; e.g. (AZBCSIJFD)V
+https://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/types.html
+
+
+iOS:
+iOSCallStaticMethod(className, methodName, ...)
+methodName: e.g. no arg "funcname",  one arg "funcname:",  two args "funcname:argname2:"
+args and return value: support base type and lua table. Lua array <==> NSArray; Lua talbe obj <==> NSDictionary.  bool type, as return value will be convert to [0|1]
+
+
+===================================================
+
+
 Andriod:
 AndroidCallStaticMethod(className, methodName, methodSignature, ...)
 methodSignature: 函数签名和jni的规则基本一致. 差别: 字符串用A替代; 只支持基本类型和字符串;  例如: (AZBCSIJFD)V
