@@ -82,6 +82,8 @@ https://blog.csdn.net/afei__/article/details/80899758
 iOS:
 iOSCallStaticMethod(className, methodName, ...)
 methodName: 如: 没有参数 "funcname"  一个参数 "funcname:"   2个参数  "funcname:argname2:"
+参数和返回值: 传递除了基础类型, 还可以传递lua表格. 其中数组对应NSArray, 表格对应NSDictionary. bool作为返回值会被转换为[0|1]
+
 ]]
 function NativeBridge.CallStatic(...)
     if CS.UnityEngine.Application.platform == CS.UnityEngine.RuntimePlatform.Android then
