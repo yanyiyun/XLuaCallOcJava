@@ -1,6 +1,6 @@
-﻿--user define
-local json = json
-local register_global_module_table = true
+--user define
+local json = require("dkjson")
+local register_global_module_table = false
 
 
 
