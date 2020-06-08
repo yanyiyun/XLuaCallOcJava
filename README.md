@@ -37,3 +37,10 @@ NativeBridge.cs
 ObjCBridge.h (Plugins/iOS/)
 ObjCBridge.mm (Plugins/iOS/)
 ```
+  
+Modify NativeBridge.lua.txt first three lines.  
+```lua
+--user define
+local json = json
+local register_global_module_table = true
+```
