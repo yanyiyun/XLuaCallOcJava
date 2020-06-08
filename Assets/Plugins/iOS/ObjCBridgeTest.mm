@@ -54,35 +54,31 @@ void ObjCTest()
     NSLog(@"%@", str);
 }
 
-
-//+ (NSString*)test2:(int)val {
-//    NSLog(@"%d", val);
-//    return [NSString stringWithFormat:@"%d", val];
-//}
-
-//+ (void)test2:(int)val {
-//    NSLog(@"%d", val);
-//}
-
-+ (NSArray*)test2:(int)val {
-    NSLog(@"%d", val);
-    return @[[NSNumber numberWithInt:val], @"aaa", @true];
-}
-
-+ (NSArray*)test2:(int)arg1 arg2:(NSString*)arg2 {
++ (NSArray*)test:(int)arg1 arg2:(NSString*)arg2 {
     if (arg2)  {
         NSLog(@"%@ %@", arg2, [arg2 class]);
     }
     return @[[NSNumber numberWithInt:arg1], arg2];
 }
 
-+ (void)test3:(NSArray*)arg1 {
-    NSLog(@"%@", arg1);
++ (int)testInt:(int)val {
+    NSLog(@"%d", val);
+    return val;
+}
+
++ (double)testDouble:(double)val {
+    NSLog(@"%f", val);
+    return val;
 }
 
 
-//+ (NSArray*)test2:(int)arg1 arg2:(int)arg2 {
-//    return @[[NSNumber numberWithInt:arg1], [NSNumber numberWithInt:arg2]];
-//}
++ (void)testArr:(NSArray*)arg1 {
+    NSLog(@"%@", arg1);
+}
+
++ (void)testDic:(NSDictionary*)val {
+    NSLog(@"%@", val);
+}
+
 
 @end
