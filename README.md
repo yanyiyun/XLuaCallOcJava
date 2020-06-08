@@ -2,17 +2,39 @@
 Lua call iOS Objective-C or Android java static method by using reflection mechanism. It only works in Unity. It's embedded XLua framework.
 
 ## Quick start
+### Android:
+```java
+//java
+package com.example.test3;
+public class JavaBridgeTest {
+    public static void TestNoArg() {
+        Log.i(tag, "====  TestNoArg  ====");
+    }
+}
+```
+
 Lua call java:  
 ```lua
+--lua
 NativeBridge.CallStatic('com.example.test3.JavaBridgeTest', 'TestNoArg', '()V')
+```
+  
+  
+### iOS:
+```Objective-c
+//Object-c
+@interface ObjCBridge : NSObject
++ (NSString*)test:(NSString*)str;
+@end
 ```
 
 Lua call Object-c:  
 ```lua
+--lua
 NativeBridge.CallStatic("ObjCBridge", "test:", "ObjCBridge Test")
 ```
 
-Lua method:  
+### Lua method:  
 ```lua
 --[[
 Andriod:
