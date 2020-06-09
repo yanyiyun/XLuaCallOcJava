@@ -75,7 +75,7 @@ end
 --[[
 Andriod:
 AndroidCallStaticMethod(className, methodName, methodSignature, ...)
-methodSignature: Method signature rule is similar to JNI rule.  Difference: Replace character string with 'A'; only support base type and sting stype; e.g. (AZBCSIJFD)V
+methodSignature: Method signature rule is similar to JNI rule.  Difference: Replace string with 'A'; only support base type and string stype; e.g. (AZBCSIJFD)V
 https://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/types.html
 
 
